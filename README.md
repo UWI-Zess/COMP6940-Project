@@ -1,5 +1,8 @@
 # Hate Crime Analysis
+# Dataset 
+The dataset used for this project is the Hate Crime dataset from the FBI. The dataset can be found [here](https://ucr.fbi.gov/hate-crime).
 
+# API
 Look at the [Fast API documentation to learn more](https://fastapi.tiangolo.com/) to learn more.
 
 ## Setup
