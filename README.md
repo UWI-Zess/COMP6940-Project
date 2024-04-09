@@ -4,6 +4,7 @@ The dataset used for this project is the Hate Crime dataset from the FBI. The da
 
 # API
 Look at the [Fast API documentation to learn more](https://fastapi.tiangolo.com/) to learn more.
+
 Uvicorn is used to run the API. Uvicorn is a lightning-fast ASGI server implementation, using uvloop and httptools. Learn more about Uvicorn [here](https://www.uvicorn.org/).
 
 ## Setup
