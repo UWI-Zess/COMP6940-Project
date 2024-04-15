@@ -32,3 +32,12 @@ uvicorn main:app --reload
 ```
 http://127.0.0.1:8000/docs
 ```
+
+
+# Web App
+using nextjs and firebase, vercel for ci/cd
+- production link - https://comp-6940-project.vercel.app/
+- vercel dashbaord - https://vercel.com/uwi-bois/comp-6940-project
+- firebase dashboard - https://console.firebase.google.com/project/comp6940---project/overview
+
+
