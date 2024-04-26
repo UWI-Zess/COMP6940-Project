@@ -1,4 +1,3 @@
 fastapi==0.110.0
 sqlalchemy==2.0.25
-csv
-datetime
+python-dateutil==2.8.2
