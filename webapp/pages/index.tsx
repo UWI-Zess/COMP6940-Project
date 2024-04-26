@@ -101,7 +101,7 @@ function Overview() {
     return (
       <OverviewWrapper>
           <Head>
-              <title>D00LM8</title>
+              <title>COMP 6940 - Hate Crime Analysis</title>
           </Head>
           <HeaderWrapper>
               <Container maxWidth="lg">

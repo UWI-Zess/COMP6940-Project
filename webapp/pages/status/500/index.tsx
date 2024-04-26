@@ -117,7 +117,7 @@ function Status500() {
               <Container maxWidth="sm">
                 <Box textAlign="center">
                   <TypographyPrimary variant="h1" sx={{ my: 2 }}>
-                    D00LM8 - TCG Helper App
+                    COMP 6940 - Hate Crime Analysis
                   </TypographyPrimary>
                   <TypographySecondary
                     variant="h4"

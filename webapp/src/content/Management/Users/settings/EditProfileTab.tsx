@@ -67,70 +67,9 @@ const EditProfileTab: FC<EditProfileTabProps> = ({appUser, updateAppUser}) => {
             >
               <Box>
                 <Typography variant="h4" gutterBottom>
-                  Duelist Details
-                </Typography>
-                <Typography variant="subtitle2">
-                  Please input your COSSY ID to easily see your table during an event!
-                </Typography>
-              </Box>
-              <Button
-                  variant="text"
-                  startIcon={<EditTwoToneIcon />}
-                  onClick={handleSubmit(onSubmit)}
-              >
-                Save Changes
-              </Button>
-            </Box>
-            <Divider />
-            <CardContent sx={{ p: 4 }}>
-              <Typography variant="subtitle2">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <Grid container spacing={0}>
-                    <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
-                      <Box pr={3} pb={2}>
-                        COSSY ID:
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={8} md={9}>
-                      <Controller
-                          name="cossyId"
-                          control={control}
-                          defaultValue={appUser?.cossyId || ''}
-                          render={({ field }) => (
-                              <TextField
-                                  {...field}
-                                  id="cossyId"
-                                  variant="standard"
-                                  // defaultValue={appUser?.cossyId || ''}
-                              />
-                          )}
-                      />
-                    </Grid>
-                  </Grid>
-                </form>
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <Box
-                p={3}
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-            >
-              <Box>
-                <Typography variant="h4" gutterBottom>
                   Account Info
                 </Typography>
-                <Typography variant="subtitle2">
-                  Free tier users cannot create events.
-                </Typography>
               </Box>
-              {/*<Button variant="text" startIcon={<EditTwoToneIcon />}>*/}
-              {/*  Edit*/}
-              {/*</Button>*/}
             </Box>
             <Divider />
             <CardContent sx={{ p: 4 }}>
@@ -146,85 +85,11 @@ const EditProfileTab: FC<EditProfileTabProps> = ({appUser, updateAppUser}) => {
                       <b>{AppUtil.printDate(appUser.createdAt as Timestamp)}</b>
                     </Text>
                   </Grid>
-                  <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
-                    <Box pr={3} pb={2}>
-                      Account Status:
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={9}>
-                    {
-                      appUser.verified ? (
-                          <Label color="success">
-                            <DoneTwoToneIcon fontSize="small" />
-                            <b>{' '}Premium</b>
-                          </Label>
-                      ) : (
-                          <>
-                            <Label color="warning">
-                              <DoneTwoToneIcon fontSize="small" />
-                              <b>{' '}Free</b>
-                            </Label>
-                          </>
-                      )
-                    }
-                  </Grid>
                 </Grid>
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        {/*<Grid item xs={12}>*/}
-        {/*  <Card>*/}
-        {/*    <Box*/}
-        {/*      p={3}*/}
-        {/*      display="flex"*/}
-        {/*      alignItems="center"*/}
-        {/*      justifyContent="space-between"*/}
-        {/*    >*/}
-        {/*      <Box>*/}
-        {/*        <Typography variant="h4" gutterBottom>*/}
-        {/*          Email Addresses*/}
-        {/*        </Typography>*/}
-        {/*        <Typography variant="subtitle2">*/}
-        {/*          Manage details related to your associated email addresses*/}
-        {/*        </Typography>*/}
-        {/*      </Box>*/}
-        {/*      <Button variant="text" startIcon={<EditTwoToneIcon />}>*/}
-        {/*        Edit*/}
-        {/*      </Button>*/}
-        {/*    </Box>*/}
-        {/*    <Divider />*/}
-        {/*    <CardContent sx={{ p: 4 }}>*/}
-        {/*      <Typography variant="subtitle2">*/}
-        {/*        <Grid container spacing={0}>*/}
-        {/*          <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>*/}
-        {/*            <Box pr={3} pb={2}>*/}
-        {/*              Email ID:*/}
-        {/*            </Box>*/}
-        {/*          </Grid>*/}
-        {/*          <Grid item xs={12} sm={8} md={9}>*/}
-        {/*            <Text color="black">*/}
-        {/*              <b>example@demo.com</b>*/}
-        {/*            </Text>*/}
-        {/*            <Box pl={1} component="span">*/}
-        {/*              <Label color="success">Primary</Label>*/}
-        {/*            </Box>*/}
-        {/*          </Grid>*/}
-        {/*          <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>*/}
-        {/*            <Box pr={3} pb={2}>*/}
-        {/*              Email ID:*/}
-        {/*            </Box>*/}
-        {/*          </Grid>*/}
-        {/*          <Grid item xs={12} sm={8} md={9}>*/}
-        {/*            <Text color="black">*/}
-        {/*              <b>demo@example.com</b>*/}
-        {/*            </Text>*/}
-        {/*          </Grid>*/}
-        {/*        </Grid>*/}
-        {/*      </Typography>*/}
-        {/*    </CardContent>*/}
-        {/*  </Card>*/}
-        {/*</Grid>*/}
       </Grid>
   );
 }
