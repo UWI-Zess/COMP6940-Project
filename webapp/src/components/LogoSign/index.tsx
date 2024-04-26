@@ -84,7 +84,7 @@ const Logo = () => {
         textAlign: 'center'
       }}
       variant="rounded"
-      alt="D00LM8"
+      alt="COMP 6940 - Hate Crime Analysis"
       src="/images/logos/logo.png"
     />
   );

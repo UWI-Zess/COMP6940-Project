@@ -58,7 +58,7 @@ function TokyoApp(props: TokyoAppProps) {
 
             <link rel="manifest" href="/manifest.json"/>
 
-            <title>D00LM8</title>
+            <title>COMP 6940 - Hate Crime Analysis</title>
             <meta
                 name="viewport"
                 content="width=device-width, initial-scale=1, shrink-to-fit=no"

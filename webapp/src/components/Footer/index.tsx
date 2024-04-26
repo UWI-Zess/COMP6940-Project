@@ -18,7 +18,7 @@ function Footer() {
       >
         <Box>
           <Typography variant="subtitle1">
-            &copy; D00LM8
+            &copy; COMP 6940 - Hate Crime Analysis
           </Typography>
         </Box>
         <Typography

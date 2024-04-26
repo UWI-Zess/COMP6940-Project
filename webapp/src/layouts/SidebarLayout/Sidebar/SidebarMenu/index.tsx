@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import {
@@ -13,15 +13,10 @@ import {
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import {
-    Apps,
-    CalendarMonthOutlined,
-    DataObject,
-    Info, InfoOutlined, InfoRounded,
-    InfoSharp,
-    InfoTwoTone,
-    ShoppingBagOutlined
-} from '@mui/icons-material';
+import ApiIcon from '@mui/icons-material/Api';
+import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import InsightsIcon from '@mui/icons-material/Insights';
 
 const MenuWrapper = styled(Box)(
     ({ theme }) => `
@@ -177,7 +172,7 @@ function SidebarMenu() {
                     component="div"
                     subheader={
                         <ListSubheader component="div" disableSticky>
-                            TOOLS
+                            GUU
                         </ListSubheader>
                     }
                 >
@@ -198,57 +193,66 @@ function SidebarMenu() {
                                     </Button>
                                 </NextLink>
                             </ListItem>
-                            {/*<ListItem component="div">*/}
-                            {/*    <NextLink href="/events" passHref>*/}
-                            {/*        <Button*/}
-                            {/*            className={*/}
-                            {/*                currentRoute === "/events"*/}
-                            {/*                    ? 'active'*/}
-                            {/*                    : ''*/}
-                            {/*            }*/}
-                            {/*            disableRipple*/}
-                            {/*            component="a"*/}
-                            {/*            onClick={closeSidebar}*/}
-                            {/*            startIcon={<CalendarMonthOutlined />}*/}
-                            {/*        >*/}
-                            {/*            Events*/}
-                            {/*        </Button>*/}
-                            {/*    </NextLink>*/}
-                            {/*</ListItem>*/}
-                            {/*<ListItem component="div">*/}
-                            {/*    <NextLink href="/marketplace" passHref>*/}
-                            {/*        <Button*/}
-                            {/*            className={*/}
-                            {/*                currentRoute === "/marketplace"*/}
-                            {/*                    ? 'active'*/}
-                            {/*                    : ''*/}
-                            {/*            }*/}
-                            {/*            disableRipple*/}
-                            {/*            component="a"*/}
-                            {/*            onClick={closeSidebar}*/}
-                            {/*            startIcon={<ShoppingBagOutlined />}*/}
-                            {/*        >*/}
-                            {/*            Marketplace*/}
-                            {/*        </Button>*/}
-                            {/*    </NextLink>*/}
-                            {/*</ListItem>*/}
-                            {/*<ListItem component="div">*/}
-                            {/*    <NextLink href="/card-db" passHref>*/}
-                            {/*        <Button*/}
-                            {/*            className={*/}
-                            {/*                currentRoute === "/card-db"*/}
-                            {/*                    ? 'active'*/}
-                            {/*                    : ''*/}
-                            {/*            }*/}
-                            {/*            disableRipple*/}
-                            {/*            component="a"*/}
-                            {/*            onClick={closeSidebar}*/}
-                            {/*            startIcon={<DataObject />}*/}
-                            {/*        >*/}
-                            {/*            Card Database*/}
-                            {/*        </Button>*/}
-                            {/*    </NextLink>*/}
-                            {/*</ListItem>*/}
+                            <ListItem component="div">
+                                <NextLink href="/insights" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/insights' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<InsightsIcon />}
+                                    >
+                                        Valuable Insights
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
+                            <ListItem component="div">
+                                <NextLink href="/heatmap" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/heatmap' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<BubbleChartIcon />}
+                                    >
+                                        Heatmap Visualization
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
+                            <ListItem component="div">
+                                <NextLink href="/lrmodel" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/lrmodel' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<ModelTrainingIcon />}
+                                    >
+                                        Logistic Regression Model
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
+                            <ListItem component="div">
+                                <NextLink href="/paapitool" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/paapitool' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<ApiIcon />}
+                                    >
+                                        Policy and Advocacy API
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
                         </List>
                     </SubMenuWrapper>
                 </List>
@@ -263,36 +267,6 @@ function SidebarMenu() {
                 >
                     <SubMenuWrapper>
                         <List component="div">
-                            {/*<ListItem component="div">*/}
-                            {/*    <NextLink href="/about/install" passHref>*/}
-                            {/*        <Button*/}
-                            {/*            className={*/}
-                            {/*                currentRoute === '/about/install' ? 'active' : ''*/}
-                            {/*            }*/}
-                            {/*            disableRipple*/}
-                            {/*            component="a"*/}
-                            {/*            onClick={closeSidebar}*/}
-                            {/*            startIcon={<Apps />}*/}
-                            {/*        >*/}
-                            {/*            Install App (PWA)*/}
-                            {/*        </Button>*/}
-                            {/*    </NextLink>*/}
-                            {/*</ListItem>*/}
-                            {/*<ListItem component="div">*/}
-                            {/*    <NextLink href="/about" passHref>*/}
-                            {/*        <Button*/}
-                            {/*            className={*/}
-                            {/*                currentRoute === '/about' ? 'active' : ''*/}
-                            {/*            }*/}
-                            {/*            disableRipple*/}
-                            {/*            component="a"*/}
-                            {/*            onClick={closeSidebar}*/}
-                            {/*            startIcon={<InfoRounded />}*/}
-                            {/*        >*/}
-                            {/*            D00LM8?*/}
-                            {/*        </Button>*/}
-                            {/*    </NextLink>*/}
-                            {/*</ListItem>*/}
                         </List>
                     </SubMenuWrapper>
                 </List>

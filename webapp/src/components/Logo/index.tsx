@@ -118,7 +118,7 @@ function Logo() {
           <Tooltip title="Version 1.0" arrow placement="right">
             <VersionBadge>1.0</VersionBadge>
           </Tooltip>
-          <LogoText>D00LM8</LogoText>
+          <LogoText>COMP 6940 - Hate Crime Analysis</LogoText>
         </LogoTextWrapper>
       </Box>
     </LogoWrapper>
