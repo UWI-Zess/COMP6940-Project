@@ -104,6 +104,27 @@ def get_incidents(
         location_name: str = None,
         offender_race: str = None,
         victim_types: str = None,
+        bias_desc: str = None,
+        public_agency_name: str = None,
+        public_agency_unit: str = None,
+        agency_type_name: str = None,
+        state_abbr: str = None,
+        division_name: str = None,
+        region_name: str = None,
+        population_group_code: int = None,
+        population_group_description: str = None,
+        incident_date: datetime = None,
+        adult_victim_count: int = None,
+        juvenile_victim_count: int = None,
+        total_offender_count: int = None,
+        adult_offender_count: int = None,
+        juvenile_offender_count: int = None,
+        victim_count: int = None,
+        offense_name: str = None,
+        total_individual_victims: int = None,
+        multiple_offense: str = None,
+        multiple_bias: str = None,
+        incident_year: int = Query(None, ge=2000, le=2020),
         skip: int = Query(0, ge=0),
         limit: int = Query(50, ge=1, le=100)
 ):
@@ -119,7 +140,49 @@ def get_incidents(
         query = query.filter(Incident.offender_race.like(f"%{offender_race}%"))
     if victim_types is not None:
         query = query.filter(Incident.victim_types.like(f"%{victim_types}%"))
-
+    if bias_desc is not None:
+        query = query.filter(Incident.bias_desc.like(f"%{bias_desc}%"))
+    if public_agency_name is not None:
+        query = query.filter(Incident.pug_agency_name.like(f"%{public_agency_name}%"))
+    if public_agency_unit is not None:
+        query = query.filter(Incident.pub_agency_unit.like(f"%{public_agency_unit}%"))
+    if agency_type_name is not None:
+        query = query.filter(Incident.agency_type_name.like(f"%{agency_type_name}%"))
+    if state_abbr is not None:
+        query = query.filter(Incident.state_abbr.like(f"%{state_abbr}%"))
+    if division_name is not None:
+        query = query.filter(Incident.division_name.like(f"%{division_name}%"))
+    if region_name is not None:
+        query = query.filter(Incident.region_name.like(f"%{region_name}%"))
+    if population_group_code is not None:
+        query = query.filter(Incident.population_group_code == population_group_code)
+    if population_group_description is not None:
+        query = query.filter(Incident.population_group_description.like(f"%{population_group_description}%"))
+    if incident_date is not None:
+        query = query.filter(Incident.incident_date == incident_date)
+    if adult_victim_count is not None:
+        query = query.filter(Incident.adult_victim_count == adult_victim_count)
+    if juvenile_victim_count is not None:
+        query = query.filter(Incident.juvenile_victim_count == juvenile_victim_count)
+    if total_offender_count is not None:
+        query = query.filter(Incident.total_offender_count == total_offender_count)
+    if adult_offender_count is not None:
+        query = query.filter(Incident.adult_offender_count == adult_offender_count)
+    if juvenile_offender_count is not None:
+        query = query.filter(Incident.juvenile_offender_count == juvenile_offender_count)
+    if victim_count is not None:
+        query = query.filter(Incident.victim_count == victim_count)
+    if offense_name is not None:
+        query = query.filter(Incident.offense_name.like(f"%{offense_name}%"))
+    if total_individual_victims is not None:
+        query = query.filter(Incident.total_individual_victims == total_individual_victims)
+    if multiple_offense is not None:
+        query = query.filter(Incident.multiple_offense.like(f"%{multiple_offense}%"))
+    if multiple_bias is not None:
+        query = query.filter(Incident.multiple_bias.like(f"%{multiple_bias}%"))
+    if incident_year is not None:
+        query = query.filter(Incident.incident_date >= datetime(incident_year, 1, 1))
+        query = query.filter(Incident.incident_date <= datetime(incident_year, 12, 31))
     incidents = query.offset(skip).limit(limit).all()
     db.close()
     return incidents
