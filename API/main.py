@@ -153,7 +153,7 @@ def get_incidents(
     if division_name is not None:
         query = query.filter(Incident.division_name.like(f"%{division_name}%"))
     if region_name is not None:
-        query = query.filter(Incident.region_name.like(f"%{region_name}%"))
+        query = query.filter(Incident.region_name == region_name)
     if population_group_code is not None:
         query = query.filter(Incident.population_group_code == population_group_code)
     if population_group_description is not None:
