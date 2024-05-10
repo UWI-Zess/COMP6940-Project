@@ -43,6 +43,7 @@ def load_data_from_csv():
         for row in reader:
             incident_date = datetime.strptime(row['incident_date'], '%Y-%m-%d').date()
             incidents.append(Incident(
+                id=int(row['incident_id']),
                 state_name=row['state_name'],
                 location_name=row['location_name'],
                 offender_race=row['offender_race'],
@@ -106,6 +107,7 @@ def get_incidents(
     if incident_month is not None:
         query = query.filter(Incident.incident_date >= datetime(incident_year, incident_month, 1))
         query = query.filter(Incident.incident_date <= datetime(incident_year, incident_month, 31))
+    total_count = query.count()
     incidents = query.offset(skip).limit(limit).all()
     db.close()
-    return incidents
+    return {"total": total_count, "incidents": incidents}
