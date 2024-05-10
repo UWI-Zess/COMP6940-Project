@@ -39,6 +39,10 @@ app = FastAPI()
 def load_data_from_csv():
     with open('cleaned_hate_crime.csv', 'r') as file:
         reader = csv.DictReader(file)
+        # check if the data is already loaded
+        db = SessionLocal()
+        if db.query(Incident).count() > 0:
+            return
         incidents = []
         for row in reader:
             incident_date = datetime.strptime(row['incident_date'], '%Y-%m-%d').date()
