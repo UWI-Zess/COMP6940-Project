@@ -1,9 +1,9 @@
-from typing import List
 from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, Column, Integer, String, Date, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 import csv
 from datetime import datetime
+from typing import List, Tuple
 
 # Define the SQLite database connection
 DATABASE_URL = "sqlite:///./test.db"
@@ -74,6 +74,17 @@ def home():
     return {"message": "Welcome to Hate Crime API"}
 
 
+# Parse filter string to extract filters
+def parse_filters(filters: str) -> List[Tuple[str, str, str]]:
+    filter_list = []
+    for f in filters.split('&'):
+        parts = f.split('=')
+        field = parts[0].split('[')[1].replace(']', '')
+        operation = parts[0].split('[')[2].replace(']', '')
+        value = parts[1]
+        filter_list.append((field, operation, value))
+    return filter_list
+
 # GET endpoint to fetch paginated incidents from the database with filtering options
 @app.get("/incidents")
 def get_incidents(
@@ -88,6 +99,7 @@ def get_incidents(
         offense_name: str = None,
         incident_year: int = Query(None, ge=2000, le=2020),
         incident_month: int = Query(None, ge=1, le=12),
+        _filters: str = None,
         skip: int = Query(0, ge=0),
         limit: int = Query(50, ge=1, le=100),
 ):
@@ -117,41 +129,21 @@ def get_incidents(
     if incident_month is not None:
         query = query.filter(Incident.incident_date >= datetime(incident_year, incident_month, 1))
         query = query.filter(Incident.incident_date <= datetime(incident_year, incident_month, 31))
+
+    # Apply additional filters
+    if _filters:
+        filters_list = parse_filters(_filters)
+        for field, operation, value in filters_list:
+            field_name = getattr(Incident, field, None)
+            if field_name is not None:
+                if operation == "eq":
+                    query = query.filter(field_name == value)
+                elif operation == "gt":
+                    query = query.filter(field_name > value)
+                elif operation == "lt":
+                    query = query.filter(field_name < value)
+
     total_count = query.count()
     incidents = query.offset(skip).limit(limit).all()
     db.close()
     return {"total": total_count, "incidents": incidents}
-
-
-# GET endpoint to fetch trend data based on incidents per year
-@app.get("/trends")
-def get_trends(
-        years: List[int] = Query(None),
-        months: List[int] = Query(None),
-        filter_ops: List[str] = Query(["eq"]),
-):
-    db = SessionLocal()
-    query = db.query(func.extract('year', Incident.incident_date).label('year'), func.count(Incident.id).label('count'))
-
-    if len(years) > 0:
-        for year, op in zip(years, filter_ops):
-            if op == 'lt':
-                query = query.filter(func.extract('year', Incident.incident_date) < year)
-            elif op == 'gt':
-                query = query.filter(func.extract('year', Incident.incident_date) > year)
-            else:
-                query = query.filter(func.extract('year', Incident.incident_date) == year)
-
-    if len(months) > 0:
-        for month, op in zip(months, filter_ops):
-            if op == 'lt':
-                query = query.filter(func.extract('month', Incident.incident_date) < month)
-            elif op == 'gt':
-                query = query.filter(func.extract('month', Incident.incident_date) > month)
-            else:
-                query = query.filter(func.extract('month', Incident.incident_date) == month)
-
-    query = query.group_by(func.extract('year', Incident.incident_date))
-    trends = query.all()
-    db.close()
-    return {"trends": trends}
