@@ -1,5 +1,6 @@
+from typing import List
 from fastapi import FastAPI, Query
-from sqlalchemy import create_engine, Column, Integer, String, Date
+from sqlalchemy import create_engine, Column, Integer, String, Date, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 import csv
 from datetime import datetime
@@ -68,6 +69,11 @@ def load_data_from_csv():
 load_data_from_csv()
 
 
+@app.get("/")
+def home():
+    return {"message": "Welcome to Hate Crime API"}
+
+
 # GET endpoint to fetch paginated incidents from the database with filtering options
 @app.get("/incidents")
 def get_incidents(
@@ -115,3 +121,37 @@ def get_incidents(
     incidents = query.offset(skip).limit(limit).all()
     db.close()
     return {"total": total_count, "incidents": incidents}
+
+
+# GET endpoint to fetch trend data based on incidents per year
+@app.get("/trends")
+def get_trends(
+        years: List[int] = Query(None),
+        months: List[int] = Query(None),
+        filter_ops: List[str] = Query(["eq"]),
+):
+    db = SessionLocal()
+    query = db.query(func.extract('year', Incident.incident_date).label('year'), func.count(Incident.id).label('count'))
+
+    if len(years) > 0:
+        for year, op in zip(years, filter_ops):
+            if op == 'lt':
+                query = query.filter(func.extract('year', Incident.incident_date) < year)
+            elif op == 'gt':
+                query = query.filter(func.extract('year', Incident.incident_date) > year)
+            else:
+                query = query.filter(func.extract('year', Incident.incident_date) == year)
+
+    if len(months) > 0:
+        for month, op in zip(months, filter_ops):
+            if op == 'lt':
+                query = query.filter(func.extract('month', Incident.incident_date) < month)
+            elif op == 'gt':
+                query = query.filter(func.extract('month', Incident.incident_date) > month)
+            else:
+                query = query.filter(func.extract('month', Incident.incident_date) == month)
+
+    query = query.group_by(func.extract('year', Incident.incident_date))
+    trends = query.all()
+    db.close()
+    return {"trends": trends}
