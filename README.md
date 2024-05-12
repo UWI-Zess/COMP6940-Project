@@ -1,6 +1,7 @@
 # Hate Crime Analysis
 # Dataset 
 The dataset used for this project is the Hate Crime dataset from the FBI. The dataset can be found [here](https://ucr.fbi.gov/hate-crime).
+1. [FBI Hate Crime Dataset](https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/explorer/crime/hate-crime)
 
 # API
 Look at the [Fast API documentation to learn more](https://fastapi.tiangolo.com/) to learn more.
@@ -32,6 +33,15 @@ uvicorn main:app --reload
 ```
 http://127.0.0.1:8000/docs
 ```
+
+## Deployment Services
+1. [Railway](https://railway.app/)
+2. [Koyeb](https://www.koyeb.com/)
+
+
+## API Links
+1. Railway -  https://comp6940-project-production.up.railway.app/docs
+2. Koyeb - https://spontaneous-constantine-ishika.koyeb.app/docs
 
 
 # Web App
