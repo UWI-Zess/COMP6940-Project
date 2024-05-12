@@ -38,7 +38,7 @@ app = FastAPI()
 
 # Function to read data from CSV file and add it to the database
 def load_data_from_csv():
-    with open('cleaned_hate_crime.csv', 'r') as file:
+    with open('hate_crime_2010.csv', 'r') as file:
         reader = csv.DictReader(file)
         # check if the data is already loaded
         db = SessionLocal()
