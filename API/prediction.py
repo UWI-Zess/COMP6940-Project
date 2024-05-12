@@ -1,7 +1,7 @@
 import pandas as pd
 import pickle
 
-data = pd.read_csv('../models/cleaned_hate_crime_forecasting.csv')
+data = pd.read_csv('cleaned_hate_crime_forecasting.csv')
 data['incident_date'] = pd.to_datetime(data['incident_date'])
 data['year'] = data['incident_date'].dt.year
 data_year = data.groupby('year').size().reset_index(name='Number of incidents')
