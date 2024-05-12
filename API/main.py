@@ -1,9 +1,11 @@
+import pickle
 from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, Column, Integer, String, Date, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 import csv
 from datetime import datetime
 from typing import List, Tuple
+import prediction
 
 # Define the SQLite database connection
 DATABASE_URL = "sqlite:///./test.db"
@@ -68,6 +70,13 @@ def load_data_from_csv():
 # Load data from CSV into the database
 load_data_from_csv()
 
+# Load the function and required data from the pickle file
+with open('forecasting_model.pkl', 'rb') as f:
+    function_data = pickle.load(f)
+
+predict_hate_crimes = function_data['predict_hate_crimes']
+data_year = function_data['data_year']
+
 
 @app.get("/")
 def home():
@@ -84,6 +93,7 @@ def parse_filters(filters: str) -> List[Tuple[str, str, str]]:
         value = parts[1]
         filter_list.append((field, operation, value))
     return filter_list
+
 
 # GET endpoint to fetch paginated incidents from the database with filtering options
 @app.get("/incidents")
@@ -147,3 +157,9 @@ def get_incidents(
     incidents = query.offset(skip).limit(limit).all()
     db.close()
     return {"total": total_count, "incidents": incidents}
+
+
+@app.get("/forecast")
+async def predict(year: int):
+    result = predict_hate_crimes(year, data_year)
+    return {"predicted_hate_crimes": result}
