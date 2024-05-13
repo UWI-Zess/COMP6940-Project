@@ -11,6 +11,7 @@ const HeatmapComponent = ({ data }) => {
         fetch('data/states-10m.json')
             .then(response => response.json())
             .then(us => {
+                // @ts-ignore
                 const states = feature(us, us.objects.states).features;
 
                 const svg = d3.select(ref.current);
