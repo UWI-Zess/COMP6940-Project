@@ -67,5 +67,5 @@ SidebarLayout.propTypes = {
   children: PropTypes.node
 };
 
-// export default requireAuth(SidebarLayout);
-export default SidebarLayout;
+export default requireAuth(SidebarLayout);
+// export default SidebarLayout;
