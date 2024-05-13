@@ -21,21 +21,20 @@ function Footer() {
             &copy; COMP 6940 - Hate Crime Analysis
           </Typography>
         </Box>
-        <Typography
-          sx={{
-            pt: { xs: 2, md: 0 }
-          }}
-          variant="subtitle1"
-        >
-          Crafted by{' '}
-          <Link
-            href="https://jjspages.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            JJsPages
-          </Link>
-        </Typography>
+        {/*<Typography*/}
+        {/*  sx={{*/}
+        {/*    pt: { xs: 2, md: 0 }*/}
+        {/*  }}*/}
+        {/*  variant="subtitle1"*/}
+        {/*>*/}
+        {/*  Crafted by{' '}*/}
+        {/*  <Link*/}
+        {/*    target="_blank"*/}
+        {/*    rel="noopener noreferrer"*/}
+        {/*  >*/}
+        {/*    Group 2*/}
+        {/*  </Link>*/}
+        {/*</Typography>*/}
       </Box>
     </FooterWrapper>
   );

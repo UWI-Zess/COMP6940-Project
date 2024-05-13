@@ -17,6 +17,9 @@ import ApiIcon from '@mui/icons-material/Api';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import InsightsIcon from '@mui/icons-material/Insights';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import InfoIcon from '@mui/icons-material/Info';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const MenuWrapper = styled(Box)(
     ({ theme }) => `
@@ -172,7 +175,7 @@ function SidebarMenu() {
                     component="div"
                     subheader={
                         <ListSubheader component="div" disableSticky>
-                            GUU
+                            Deliverables
                         </ListSubheader>
                     }
                 >
@@ -190,6 +193,21 @@ function SidebarMenu() {
                                         startIcon={<AccountCircleTwoToneIcon />}
                                     >
                                         User Profile
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
+                            <ListItem component="div">
+                                <NextLink href="/report" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/report' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<AssessmentIcon />}
+                                    >
+                                        Full Report
                                     </Button>
                                 </NextLink>
                             </ListItem>
@@ -267,6 +285,36 @@ function SidebarMenu() {
                 >
                     <SubMenuWrapper>
                         <List component="div">
+                            <ListItem component="div">
+                                <NextLink href="/about/project" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/about/project' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<InfoIcon />}
+                                    >
+                                        Project
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
+                            <ListItem component="div">
+                                <NextLink href="/about/group" passHref>
+                                    <Button
+                                        className={
+                                            currentRoute === '/about/project' ? 'active' : ''
+                                        }
+                                        disableRipple
+                                        component="a"
+                                        onClick={closeSidebar}
+                                        startIcon={<GroupsIcon />}
+                                    >
+                                        Group
+                                    </Button>
+                                </NextLink>
+                            </ListItem>
                         </List>
                     </SubMenuWrapper>
                 </List>

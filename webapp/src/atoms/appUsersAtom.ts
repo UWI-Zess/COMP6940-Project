@@ -1,6 +1,5 @@
 import { atom } from "recoil";
 import {FieldValue} from "firebase/firestore";
-import {EventFormat, EventStatus, EventType} from "@/atoms/ygoEventsAtom";
 
 export const AppUser_CollectionName = "users";
 
