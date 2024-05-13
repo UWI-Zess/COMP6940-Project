@@ -29,7 +29,7 @@ function AboutGroup() {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>About - Group</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                 </Container>

@@ -242,21 +242,6 @@ function SidebarMenu() {
                                 </NextLink>
                             </ListItem>
                             <ListItem component="div">
-                                <NextLink href="/lrmodel" passHref>
-                                    <Button
-                                        className={
-                                            currentRoute === '/lrmodel' ? 'active' : ''
-                                        }
-                                        disableRipple
-                                        component="a"
-                                        onClick={closeSidebar}
-                                        startIcon={<ModelTrainingIcon />}
-                                    >
-                                        Logistic Regression Model
-                                    </Button>
-                                </NextLink>
-                            </ListItem>
-                            <ListItem component="div">
                                 <NextLink href="/paapitool" passHref>
                                     <Button
                                         className={
@@ -267,7 +252,7 @@ function SidebarMenu() {
                                         onClick={closeSidebar}
                                         startIcon={<ApiIcon />}
                                     >
-                                        Policy and Advocacy API
+                                        API + ML Models
                                     </Button>
                                 </NextLink>
                             </ListItem>
@@ -304,7 +289,7 @@ function SidebarMenu() {
                                 <NextLink href="/about/group" passHref>
                                     <Button
                                         className={
-                                            currentRoute === '/about/project' ? 'active' : ''
+                                            currentRoute === '/about/group' ? 'active' : ''
                                         }
                                         disableRipple
                                         component="a"

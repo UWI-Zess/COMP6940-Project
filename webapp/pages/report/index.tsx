@@ -47,7 +47,7 @@ const FullReport: NextPage<FullReportProps> = ({ notebookHtmlContent  }) => {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>Full Analysis</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                     {/*<NotebookHTMLComponent notebookHtmlPath={'/notebooks/html/main.html'} />  /!* Use the NotebookComponent here *!/*/}

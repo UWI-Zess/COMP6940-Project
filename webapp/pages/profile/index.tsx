@@ -29,7 +29,7 @@ function ManagementUserProfile() {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>User Profile</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                     <Grid

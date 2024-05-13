@@ -29,7 +29,7 @@ function Heatmap() {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>Heatmap</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                 </Container>
