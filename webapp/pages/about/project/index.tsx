@@ -29,7 +29,7 @@ function AboutProject() {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>About - Project</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                 </Container>

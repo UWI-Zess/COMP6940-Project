@@ -2,15 +2,14 @@ import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import Footer from '@/components/Footer';
 
-import { Grid, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
-import ProfileCover from '@/content/Management/Users/details/ProfileCover';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/clientApp';
 import {useState} from 'react';
 import useAppUser from "@/hooks/useAppUser";
-import EditProfileTab from "@/content/Management/Users/settings/EditProfileTab";
 import FullScreenSpinner from "@/components/Spinners/FullScreenSpinner";
+import IframeComponent from "@/components/Iframes/IframeComponent";
 
 function PaApiTool() {
     const [user, authLoading, userError] = useAuthState(auth);
@@ -32,6 +31,9 @@ function PaApiTool() {
                     <title>User Details - Management</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
+                    <div style={{ padding: '20px', backgroundColor: '#1e1e1e' }}> {/* Container with dark background */}
+                        <IframeComponent src="https://spontaneous-constantine-ishika.koyeb.app/docs#" title="External Documentation" />
+                    </div>
                 </Container>
                 <Footer />
             </>
