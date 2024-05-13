@@ -107,8 +107,6 @@ dist
 .vs
 .vscode
 .firebase
-.idea/
-.vscode/
 sw.js
 sw.js.map
 workbox-*.js
