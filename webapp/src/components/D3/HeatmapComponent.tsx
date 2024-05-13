@@ -21,7 +21,10 @@ const HeatmapComponent = ({ data }) => {
                 const path = d3.geoPath().projection(projection);
 
                 const colorScale = d3.scaleSequentialLog(d3.interpolateReds)
-                    .domain([1, d3.max(data, d => d.count)]);
+                    .domain(
+                        // @ts-ignore
+                        [1, d3.max(data, d => d.count)]
+                    );
 
                 svg.append("g")
                     .selectAll("path")
@@ -29,11 +32,15 @@ const HeatmapComponent = ({ data }) => {
                     .join("path")
                     .attr("d", path)
                     .attr("fill", d => {
+                        // @ts-ignore
                         const stateData = data.find(item => item.state === d.properties.name);
                         return stateData ? colorScale(stateData.count) : '#fff';
                     })
                     .append("title")
-                    .text(d => `${d.properties.name}: ${data.find(item => item.state === d.properties.name)?.count || 0} incidents`);
+                    .text(
+                        // @ts-ignore
+                        d => `${d.properties.name}: ${data.find(item => item.state === d.properties.name)?.count || 0} incidents`
+                    );
             });
     }, [data]);
 
