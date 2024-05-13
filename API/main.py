@@ -80,10 +80,12 @@ with open('forecasting_model.pkl', 'rb') as f:
 predict_hate_crimes = function_data['predict_hate_crimes']
 data_year = function_data['data_year']
 
-
 # Load the function and required data from the pickle file
 with open('logit_regression_model.pkl', 'rb') as f:
     model = pickle.load(f)
+
+with open('xgb_model.pkl', 'rb') as f:
+    gb_model = pickle.load(f)
 
 
 @app.get("/")
@@ -223,6 +225,11 @@ class LocationName(str, Enum):
     Retail = "Retail"
 
 
+class Model(str, Enum):
+    logit_regression = "logit_regression"
+    gradient_boosting = "gradient_boosting"
+
+
 def create_predictors_dict(
         region_name: RegionName,
         offender_race: OffenderRace,
@@ -270,6 +277,7 @@ def create_predictors_dict(
 
 @app.get("/predict")
 async def predict(
+        predictive_model: Model,
         region_name: RegionName,
         offender_race: OffenderRace,
         offender_count: OffenderCount,
@@ -280,7 +288,11 @@ async def predict(
     predictors = create_predictors_dict(region_name, offender_race, offender_count, victim_count, offense_name,
                                         location_name)
     predict_df = pd.DataFrame([predictors])
-    prediction_result = model.predict(predict_df)
+    if predictive_model == Model.logit_regression:
+        prediction_result = model.predict(predict_df)
+    else:
+        prediction_result = gb_model.predict(predict_df)
+
     # log the prediction result
     if prediction_result[0] == 0:
         return {"prediction": "Race"}
