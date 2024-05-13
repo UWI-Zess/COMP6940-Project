@@ -1,4 +1,7 @@
 import pickle
+from enum import Enum
+
+import pandas as pd
 from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, Column, Integer, String, Date, func
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -76,6 +79,11 @@ with open('forecasting_model.pkl', 'rb') as f:
 
 predict_hate_crimes = function_data['predict_hate_crimes']
 data_year = function_data['data_year']
+
+
+# Load the function and required data from the pickle file
+with open('logit_regression_model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 
 @app.get("/")
@@ -163,3 +171,121 @@ def get_incidents(
 async def predict(year: int):
     result = predict_hate_crimes(year, data_year)
     return {"predicted_hate_crimes": result}
+
+
+class RegionName(str, Enum):
+    Midwest = "Midwest"
+    Northeast = "Northeast"
+    Other = "Other"
+    South = "South"
+    US_Territories = "U.S. Territories"
+    West = "West"
+
+
+class OffenderRace(str, Enum):
+    American_Indian_or_Alaska_Native = "American Indian or Alaska Native"
+    Asian = "Asian"
+    Black_or_African_American = "Black or African American"
+    Multiple = "Multiple"
+    Native_Hawaiian_or_Other_Pacific_Islander = "Native Hawaiian or Other Pacific Islander"
+    White = "White"
+
+
+class OffenderCount(str, Enum):
+    Few = "Few"
+    Many = "Many"
+    Several = "Several"
+
+
+class VictimCount(str, Enum):
+    Few = "Few"
+    Many = "Many"
+    Several = "Several"
+
+
+class OffenseName(str, Enum):
+    drug_crimes = "drug crimes"
+    financial_crimes = "financial crimes"
+    miscellaneous_crimes = "miscellaneous crimes"
+    property_crimes = "property crimes"
+    sexual_crimes = "sexual crimes"
+    violent_crimes = "violent crimes"
+
+
+class LocationName(str, Enum):
+    Construction_Industrial = "Construction/Industrial"
+    Education = "Education"
+    Law_Enforcement = "Law Enforcement"
+    Miscellaneous = "Miscellaneous"
+    Outdoor_Nature = "Outdoor/Nature"
+    Public_Place = "Public Place"
+    Residence = "Residence"
+    Retail = "Retail"
+
+
+def create_predictors_dict(
+        region_name: RegionName,
+        offender_race: OffenderRace,
+        offender_count: OffenderCount,
+        victim_count: VictimCount,
+        offense_name: OffenseName,
+        location_name: LocationName
+):
+    predictors = {
+        'region_name_Midwest': region_name == RegionName.Midwest,
+        'region_name_Northeast': region_name == RegionName.Northeast,
+        'region_name_Other': region_name == RegionName.Other,
+        'region_name_South': region_name == RegionName.South,
+        'region_name_U.S. Territories': region_name == RegionName.US_Territories,
+        'region_name_West': region_name == RegionName.West,
+        'offender_race_American Indian or Alaska Native': offender_race == OffenderRace.American_Indian_or_Alaska_Native,
+        'offender_race_Asian': offender_race == OffenderRace.Asian,
+        'offender_race_Black or African American': offender_race == OffenderRace.Black_or_African_American,
+        'offender_race_Multiple': offender_race == OffenderRace.Multiple,
+        'offender_race_Native Hawaiian or Other Pacific Islander': offender_race == OffenderRace.Native_Hawaiian_or_Other_Pacific_Islander,
+        'offender_race_White': offender_race == OffenderRace.White,
+        'grouped_total_offender_count_Few': offender_count == OffenderCount.Few,
+        'grouped_total_offender_count_Many': offender_count == OffenderCount.Many,
+        'grouped_total_offender_count_Several': offender_count == OffenderCount.Several,
+        'grouped_victim_count_Few': victim_count == VictimCount.Few,
+        'grouped_victim_count_Many': victim_count == VictimCount.Many,
+        'grouped_victim_count_Several': victim_count == VictimCount.Several,
+        'generalized_offense_name_drug crimes': offense_name == OffenseName.drug_crimes,
+        'generalized_offense_name_financial crimes': offense_name == OffenseName.financial_crimes,
+        'generalized_offense_name_miscellaneous crimes': offense_name == OffenseName.miscellaneous_crimes,
+        'generalized_offense_name_property crimes': offense_name == OffenseName.property_crimes,
+        'generalized_offense_name_sexual crimes': offense_name == OffenseName.sexual_crimes,
+        'generalized_offense_name_violent crimes': offense_name == OffenseName.violent_crimes,
+        'generalized_location_name_Construction/Industrial': location_name == LocationName.Construction_Industrial,
+        'generalized_location_name_Education': location_name == LocationName.Education,
+        'generalized_location_name_Law Enforcement': location_name == LocationName.Law_Enforcement,
+        'generalized_location_name_Miscellaneous': location_name == LocationName.Miscellaneous,
+        'generalized_location_name_Outdoor/Nature': location_name == LocationName.Outdoor_Nature,
+        'generalized_location_name_Public Place': location_name == LocationName.Public_Place,
+        'generalized_location_name_Residence': location_name == LocationName.Residence,
+        'generalized_location_name_Retail': location_name == LocationName.Retail
+    }
+    return predictors
+
+
+@app.get("/predict")
+async def predict(
+        region_name: RegionName,
+        offender_race: OffenderRace,
+        offender_count: OffenderCount,
+        victim_count: VictimCount,
+        offense_name: OffenseName,
+        location_name: LocationName
+):
+    predictors = create_predictors_dict(region_name, offender_race, offender_count, victim_count, offense_name,
+                                        location_name)
+    predict_df = pd.DataFrame([predictors])
+    prediction_result = model.predict(predict_df)
+    # log the prediction result
+    if prediction_result[0] == 0:
+        return {"prediction": "Race"}
+    elif prediction_result[0] == 1:
+        return {"prediction": "Religion"}
+    elif prediction_result[0] == 2:
+        return {"prediction": "Sexual Orientation"}
+    return {"prediction": "Not found"}
