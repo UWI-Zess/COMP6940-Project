@@ -39,6 +39,7 @@ function Heatmap() {
     }, []);
 
     const aggregateData = (rawData) => {
+        // @ts-ignore
         return d3.rollups(rawData, v => v.length, d => d.state_name)
             .map(([state, count]) => ({ state, count }));
     };
