@@ -212,21 +212,6 @@ function SidebarMenu() {
                                 </NextLink>
                             </ListItem>
                             <ListItem component="div">
-                                <NextLink href="/insights" passHref>
-                                    <Button
-                                        className={
-                                            currentRoute === '/insights' ? 'active' : ''
-                                        }
-                                        disableRipple
-                                        component="a"
-                                        onClick={closeSidebar}
-                                        startIcon={<InsightsIcon />}
-                                    >
-                                        Valuable Insights
-                                    </Button>
-                                </NextLink>
-                            </ListItem>
-                            <ListItem component="div">
                                 <NextLink href="/heatmap" passHref>
                                     <Button
                                         className={
@@ -285,21 +270,21 @@ function SidebarMenu() {
                                     </Button>
                                 </NextLink>
                             </ListItem>
-                            <ListItem component="div">
-                                <NextLink href="/about/group" passHref>
-                                    <Button
-                                        className={
-                                            currentRoute === '/about/group' ? 'active' : ''
-                                        }
-                                        disableRipple
-                                        component="a"
-                                        onClick={closeSidebar}
-                                        startIcon={<GroupsIcon />}
-                                    >
-                                        Group
-                                    </Button>
-                                </NextLink>
-                            </ListItem>
+                            {/*<ListItem component="div">*/}
+                            {/*    <NextLink href="/about/group" passHref>*/}
+                            {/*        <Button*/}
+                            {/*            className={*/}
+                            {/*                currentRoute === '/about/group' ? 'active' : ''*/}
+                            {/*            }*/}
+                            {/*            disableRipple*/}
+                            {/*            component="a"*/}
+                            {/*            onClick={closeSidebar}*/}
+                            {/*            startIcon={<GroupsIcon />}*/}
+                            {/*        >*/}
+                            {/*            Group*/}
+                            {/*        </Button>*/}
+                            {/*    </NextLink>*/}
+                            {/*</ListItem>*/}
                         </List>
                     </SubMenuWrapper>
                 </List>
