@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import useAppUser from "@/hooks/useAppUser";
 import FullScreenSpinner from "@/components/Spinners/FullScreenSpinner";
 import * as d3 from 'd3';
-import HeatmapComponent from '@/components/D3/HeatmapComponent';
+import HeatmapComponent from "@/components/D3/HeatmapComponent";
 
 const csvPath = 'data/cleaned_hate_crime.csv'
 
