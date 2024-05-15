@@ -167,8 +167,8 @@ def get_incidents(
 
 @app.get("/forecast")
 async def predict(year: int):
-    if year < 2017:
-        return {"error": "Year should be greater than or equal to 2017"}
+    if year <= 2017:
+        return {"error": "Year should be greater than 2017"}
 
     # calculate the length of the future years from 2017
     future_years = year - 2017
