@@ -8,7 +8,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import csv
 from datetime import datetime
 from typing import List, Tuple
-import prediction
 
 # Define the SQLite database connection
 DATABASE_URL = "sqlite:///./test.db"
@@ -75,10 +74,7 @@ load_data_from_csv()
 
 # Load the function and required data from the pickle file
 with open('forecasting_model.pkl', 'rb') as f:
-    function_data = pickle.load(f)
-
-predict_hate_crimes = function_data['predict_hate_crimes']
-data_year = function_data['data_year']
+    se_fit = pickle.load(f)
 
 # Load the function and required data from the pickle file
 with open('logit_regression_model.pkl', 'rb') as f:
@@ -171,7 +167,21 @@ def get_incidents(
 
 @app.get("/forecast")
 async def predict(year: int):
-    result = predict_hate_crimes(year, data_year)
+    if year < 2017:
+        return {"error": "Year should be greater than or equal to 2017"}
+
+    # calculate the length of the future years from 2017
+    future_years = year - 2017
+
+    # calculate the future hate crimes
+    result = se_fit.forecast(future_years)
+
+    # get the last element of the result object
+    result = result.to_numpy()
+
+    if len(result) > 0:
+        result = result[-1]
+
     return {"predicted_hate_crimes": result}
 
 
