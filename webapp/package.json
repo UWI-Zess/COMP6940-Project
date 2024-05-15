@@ -1,11 +1,11 @@
 {
-  "name": "d00lm8",
+  "name": "assignment",
   "version": "1.0.0",
   "title": "COMP 6940 - Hate Crime Analysis",
-  "description": "D00L M8 - mini ygo social media app",
+  "description": "assignment",
   "author": {
     "name": "jj",
-    "url": "https://jjspages.com"
+    "url": ""
   },
   "private": true,
   "dependencies": {
