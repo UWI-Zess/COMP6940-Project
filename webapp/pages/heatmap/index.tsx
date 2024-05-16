@@ -30,20 +30,16 @@ function Heatmap() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const rawData = await d3.csv('data/cleaned_hate_crime_forecasting.csv');
-            const aggregatedData = aggregateData(rawData);
-            setData(aggregatedData);
-        };
-        fetchData();
+        d3.csv('data//hate_crime_per_100k.csv').then(csvData => {
+            const formattedData = csvData.map(d => ({
+                state_name: d.state_name,
+                number_of_incidents: +d.number_of_incidents,
+                average_population: +d.average_population,
+                average_hate_crimes_per_100k: +d.average_hate_crimes_per_100k
+            }));
+            setData(formattedData);
+        });
     }, []);
-
-    const aggregateData = (rawData) => {
-        // @ts-ignore
-        return d3.rollups(rawData, v => v.length, d => d.state_name)
-            .map(([state, count]) => ({ state, count }));
-    };
-
 
     if (!appUserLoading && appUser){
         return (
