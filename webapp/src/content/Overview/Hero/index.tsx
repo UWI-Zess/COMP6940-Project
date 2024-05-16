@@ -113,7 +113,7 @@ function Hero() {
         <Grid item md={10} lg={8} mx="auto">
           <LabelWrapper color="success">Version {AppUtil.APP_VERSION}</LabelWrapper>
           <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Hatecrime analysis.
+            Hatecrime Analysis
           </TypographyH1>
           <TypographyH2
             sx={{ lineHeight: 1.5, pb: 4 }}
@@ -121,7 +121,7 @@ function Hero() {
             color="text.secondary"
             fontWeight="normal"
           >
-            Insights when
+            Group A
           </TypographyH2>
           {
             currUser ? (

@@ -28,7 +28,7 @@ function PaApiTool() {
         return (
             <>
                 <Head>
-                    <title>User Details - Management</title>
+                    <title>API Tool</title>
                 </Head>
                 <Container sx={{ mt: 3 }} maxWidth="lg">
                     <div style={{ padding: '20px', backgroundColor: '#1e1e1e' }}> {/* Container with dark background */}

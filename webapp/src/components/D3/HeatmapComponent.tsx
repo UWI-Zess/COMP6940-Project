@@ -15,32 +15,33 @@ const HeatmapComponent = ({ data }) => {
                 const states = feature(us, us.objects.states).features;
 
                 const svg = d3.select(ref.current);
-                svg.selectAll("*").remove(); // Clear previous SVG content
+                svg.selectAll('*').remove(); // Clear previous SVG content
 
                 const projection = d3.geoAlbersUsa().scale(1300).translate([487.5, 305]);
                 const path = d3.geoPath().projection(projection);
 
-                const colorScale = d3.scaleSequentialLog(d3.interpolateReds)
-                    .domain(
-                        // @ts-ignore
-                        [1, d3.max(data, d => d.count)]
-                    );
+                // @ts-ignore
+                const colorScale = d3.scaleSequential(d3.interpolateReds).domain([0, d3.max(data, d => d.average_hate_crimes_per_100k) || 0]);
 
-                svg.append("g")
-                    .selectAll("path")
+                svg.append('g')
+                    .selectAll('path')
                     .data(states)
-                    .join("path")
-                    .attr("d", path)
-                    .attr("fill", d => {
+                    .join('path')
+                    .attr('d', path)
+                    .attr('fill', d => {
                         // @ts-ignore
-                        const stateData = data.find(item => item.state === d.properties.name);
-                        return stateData ? colorScale(stateData.count) : '#fff';
+                        const stateData = data.find(item => item.state_name === d.properties.name);
+                        return stateData ? colorScale(stateData.average_hate_crimes_per_100k) : '#fff';
                     })
-                    .append("title")
-                    .text(
+                    .append('title')
+                    .text(d => {
                         // @ts-ignore
-                        d => `${d.properties.name}: ${data.find(item => item.state === d.properties.name)?.count || 0} incidents`
-                    );
+                        const stateData = data.find(item => item.state_name === d.properties.name);
+                        return stateData
+                            ? `${stateData.state_name}: ${stateData.average_hate_crimes_per_100k.toFixed(2)} avg hate crimes per 100k`
+                            // @ts-ignore
+                            : `${d.properties.name}: No data`;
+                    });
             });
     }, [data]);
 
